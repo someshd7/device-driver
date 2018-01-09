@@ -1,18 +1,12 @@
-obj.m := hello.o
+obj-m:=led_blink.o
 
 
-KERNELDIR=lib/modules/$(shell uname -r)/build
-PWD := $(shell pwd)
+KERNELDIR=lib/modules/$(shell uname -r) /build
+pwd := $(shell pwd)
 
-default=
-	$(MAKE) -C $(KERNELDIR) M=$(pwd) modules
-
-
-insatall:
-	$(MAKE) -C $(KERNELDIR) M=$(pwd) modules_install
-
+default:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
+	
+	
 clean:
-	$(MAKE) -c $(KERNELDIR) M=$(pwd) clean
-
-
-
+	$(MAKE) -C $(KERNELDIR)	M=$(PWD) clean
