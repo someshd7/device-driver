@@ -1,0 +1,30 @@
+*******///// WHAT IS SCULL /////
+
+The scull device in the book is simply an area of memory (RAM). So, when one overwrites it with a shorter file, it simply becomes a smaller area of memory (a.k.a shorter device data area). Therefore, when the device is opened for writing, the length should be truncated to 0 bytes (because we have not written anything yet. We have just opened it for writing).
+
+********///// AUTOMATIC CREATION OF DEVICE FILES ///////
+
+	earlier even with registration for the major and minor device range files were not created under /dev insted you have to create them manuallu using mknod.
+
+       ////you can automatically create device files using udev daemon. 
+      //// connection of the device files with the device driver- linking the device file operations to the device driver functions.
+
+	the kernel now only populates the appropriate device class and device information into the /sys window, for the device under consideration. User-space then needs to interpret it and take appropriate action. In most Linux desktop systems, the udev daemon picks up that information, and accordingly creates the device files.
+
+	undev can be further configures via its configuration files to tune the device file names , permissions,theri types etc.
+
+      the device class can be created as follows:
+
+   struct class *cl = class_create(THIS_MODULE,"<device class name>");
+
+   then the device info(<major,minor>) under this class is populated by:
+
+device_create(cl,NULL,first,NULL,"<device name format>",....)
+first:dev_t 
+
+	/// corresponding complementry calls
+
+	device_destroy(cl,first);
+	class_destroy(cl);
+
+
